@@ -74,4 +74,5 @@ export default tseslint.config({
   npm install antd --save
 ```
 
-5.
+5. 安装 axios
+6.
