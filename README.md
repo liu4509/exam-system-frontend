@@ -75,4 +75,4 @@ export default tseslint.config({
 ```
 
 5. 安装 axios
-6.
+6. 完成 login register 页面

@@ -1,8 +1,7 @@
 import { Button, Form, Input, message } from "antd";
 import "./index.css";
-import { responseEncoding, ResponseType } from "axios";
 import { login } from "../../interfaces";
-import { data } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const layout1 = {
   labelCol: { span: 4 },
@@ -17,22 +16,29 @@ interface LoginUser {
   username: string;
   password: string;
 }
-const onFinish = async (value: LoginUser) => {
-  console.log(value);
-  try {
-    const res = await login(value.username, value.password);
-    if (res.status === 201 || res.status === 200) {
-      message.success("登录成功");
-      console.log(res.data);
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("userInfo", JSON.stringify(res.data.user));
-    }
-  } catch (error) {
-    message.error((error as any).response?.data?.message || "系统繁忙，请稍后再试");
-  }
-};
 
 export function Login() {
+  const navigate = useNavigate();
+
+  const onFinish = async (value: LoginUser) => {
+    console.log(value);
+    try {
+      const res = await login(value.username, value.password);
+      if (res.status === 201 || res.status === 200) {
+        message.success("登录成功");
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("userInfo", JSON.stringify(res.data.user));
+      }
+    } catch (error) {
+      message.error(
+        (error as any).response?.data?.message || "系统繁忙，请稍后再试"
+      );
+    }
+  };
   return (
     <div id="login-container">
       <h1>考试系统</h1>
