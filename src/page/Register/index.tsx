@@ -3,6 +3,7 @@ import { useForm } from "antd/es/form/Form";
 import "./index.css";
 import { register, registerCaptcha } from "../../interfaces";
 import { useNavigate } from "react-router-dom";
+
 const layout1 = {
   labelCol: { span: 6 },
   wrapperCol: { span: 18 },
