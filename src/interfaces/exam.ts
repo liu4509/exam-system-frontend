@@ -56,3 +56,19 @@ export async function examList() {
 export async function examAdd(values: ExamAdd) {
   return await examServiceInstance.post("/add", values);
 }
+
+export async function examPublish(id: number) {
+  return await examServiceInstance.get(`/publish/${id}`);
+}
+
+export async function examUnpublish(id: number) {
+  return await examServiceInstance.get(`/unpublish/${id}`);
+}
+
+export async function examDelete(id: number) {
+  return await examServiceInstance.delete(`/delete/${id}`);
+}
+
+export async function examUndelete(id: number) {
+  return await examServiceInstance.get(`/undelete/${id}`);
+}
