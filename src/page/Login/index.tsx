@@ -1,6 +1,6 @@
 import { Button, Form, Input, message } from "antd";
 import "./index.css";
-import { login } from "../../interfaces";
+import { login } from "../../interfaces/user";
 import { useNavigate } from "react-router-dom";
 
 const layout1 = {
@@ -29,13 +29,12 @@ export function Login() {
         setTimeout(() => {
           navigate("/");
         }, 1000);
-
-        localStorage.setItem("token", res.data.token);
-        localStorage.setItem("userInfo", JSON.stringify(res.data.user));
+        localStorage.setItem("token", res.data.data.token);
+        localStorage.setItem("userInfo", JSON.stringify(res.data.data.user));
       }
-    } catch (error) {
+    } catch (error: any) {
       message.error(
-        (error as any).response?.data?.message || "系统繁忙，请稍后再试"
+        error.response?.data?.data?.message || "系统繁忙，请稍后再试"
       );
     }
   };

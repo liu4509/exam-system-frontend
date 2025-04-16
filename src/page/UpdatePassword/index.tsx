@@ -1,7 +1,7 @@
 import { Button, Form, Input, message } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { useNavigate } from "react-router-dom";
-import { forgotCaptcha, forgotPassword } from "../../interfaces";
+import { forgotCaptcha, forgotPassword } from "../../interfaces/user";
 
 const layout1 = {
   labelCol: { span: 6 },
@@ -27,13 +27,15 @@ export function UpdatePassword() {
     try {
       const res = await forgotPassword(value);
       if (res.status === 201 || res.status === 200) {
-        message.success(res.data);
+        message.success(res.data.data);
         setTimeout(() => {
           navigate("/login");
         }, 1000);
       }
     } catch (error: any) {
-      message.error(error?.response?.data?.message || "注册失败，请稍后重试");
+      message.error(
+        error?.response?.data?.data?.message || "注册失败，请稍后重试"
+      );
     }
   };
 
@@ -45,11 +47,11 @@ export function UpdatePassword() {
     try {
       const res = await forgotCaptcha(address);
       if (res.status === 201 || res.status === 200) {
-        message.success(res.data);
+        message.success(res.data.data);
       }
     } catch (error: any) {
       message.error(
-        error?.response?.data?.message || "获取验证码失败，请稍后重试"
+        error?.response?.data?.data?.message || "获取验证码失败，请稍后重试"
       );
     }
   }

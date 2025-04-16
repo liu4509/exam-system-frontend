@@ -1,7 +1,7 @@
 import { Button, Form, Input, message } from "antd";
 import { useForm } from "antd/es/form/Form";
 import "./index.css";
-import { register, registerCaptcha } from "../../interfaces";
+import { register, registerCaptcha } from "../../interfaces/user";
 import { useNavigate } from "react-router-dom";
 
 const layout1 = {
@@ -37,7 +37,9 @@ export function Register() {
         }, 1000);
       }
     } catch (error: any) {
-      message.error(error?.response?.data?.message || "注册失败，请稍后重试");
+      message.error(
+        error?.response?.data?.data?.message || "注册失败，请稍后重试"
+      );
     }
   };
 
@@ -49,11 +51,11 @@ export function Register() {
     try {
       const res = await registerCaptcha(address);
       if (res.status === 201 || res.status === 200) {
-        message.success(res.data);
+        message.success(res.data.data);
       }
     } catch (error: any) {
       message.error(
-        error?.response?.data?.message || "获取验证码失败，请稍后重试"
+        error?.response?.data?.data?.message || "获取验证码失败，请稍后重试"
       );
     }
   }
