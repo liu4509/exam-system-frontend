@@ -2,6 +2,7 @@ import { Button, message } from "antd";
 import "./index.scss";
 import { useEffect, useState } from "react";
 import { examList } from "../../interfaces/exam";
+import { ExamAddModal } from "./ExamAddModal";
 
 interface ExamDto {
   id: number;
@@ -15,6 +16,7 @@ interface ExamDto {
 
 const ExamList = () => {
   const [list, setList] = useState<Array<ExamDto>>();
+  const [isExamAddModalOpen, setIsExamAddModalOpen] = useState(false);
 
   async function query() {
     try {
@@ -40,7 +42,9 @@ const ExamList = () => {
       </div>
       <div className="body">
         <div className="operate">
-          <Button type="primary">新建试卷</Button>
+          <Button type="primary" onClick={() => setIsExamAddModalOpen(true)}>
+            新建试卷
+          </Button>
         </div>
         <div className="list">
           {list?.map((item) => {
@@ -75,6 +79,13 @@ const ExamList = () => {
           })}
         </div>
       </div>
+      <ExamAddModal
+        isOpen={isExamAddModalOpen}
+        handleClose={() => {
+          setIsExamAddModalOpen(false);
+          query();
+        }}
+      />
     </div>
   );
 };

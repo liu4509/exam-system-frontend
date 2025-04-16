@@ -1,5 +1,6 @@
 import { message } from "antd";
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios";
+import { ExamAdd } from "../page/ExamList/ExamAddModal";
 
 const examServiceInstance = axios.create({
   baseURL: "http://localhost:3002/",
@@ -50,4 +51,8 @@ examServiceInstance.interceptors.response.use(
 
 export async function examList() {
   return await examServiceInstance.get("/list");
+}
+
+export async function examAdd(values: ExamAdd) {
+  return await examServiceInstance.post("/add", values);
 }
